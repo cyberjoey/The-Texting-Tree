@@ -42,8 +42,7 @@ def sms():
       green = int(round(255*rgba[1]))
       blue = int(round(255*rgba[2]))
       rgb_string = '[{0:03d},{1:03d},{2:03d}]'.format(red, green, blue)
-      #payload = {'access_token': os.environ['SPARK_ACCESS_TOKEN'], 'command': rgb_string}
-      payload = {'access_token': os.environ['SPARK_ACCESS_TOKEN'], 'command': rga}
+      payload = {'access_token': os.environ['SPARK_ACCESS_TOKEN'], 'command': rgb_string}
       r = requests.post("https://api.spark.io/v1/devices/{0}/color".format(os.environ['SPARK_CORE_ID']), data=payload)
       return Response(mimetype='text/plain')
 
