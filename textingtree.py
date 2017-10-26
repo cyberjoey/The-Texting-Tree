@@ -35,7 +35,18 @@ def sms():
     rgba = tinycss2.color3.parse_color(sms)
 
     if rgba is None:
-      return Response("Sorry, I don't recognize that color.", mimetype='text/plain')
+      if sms == "christmas":
+        rgb_string = '[{0:03d},{1:03d},{2:03d}]'.format(42, 142, 242)
+        payload = {'access_token': os.environ['SPARK_ACCESS_TOKEN'], 'command': rgb_string}
+        r = requests.post("https://api.spark.io/v1/devices/{0}/color".format(os.environ['SPARK_CORE_ID']), data=payload)
+        return Response(mimetype='text/plain')
+      if sms == "maxim":
+        rgb_string = '[{0:03d},{1:03d},{2:03d}]'.format(42, 142, 243)
+        payload = {'access_token': os.environ['SPARK_ACCESS_TOKEN'], 'command': rgb_string}
+        r = requests.post("https://api.spark.io/v1/devices/{0}/color".format(os.environ['SPARK_CORE_ID']), data=payload)
+        return Response(mimetype='text/plain')
+      #return Response("Sorry, I don't recognize that color.", mimetype='text/plain')
+
 
     if len(rgba) == 4:
       red = int(round(255*rgba[0]))
